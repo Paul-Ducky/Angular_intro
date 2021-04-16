@@ -1,0 +1,30 @@
+
+{{ friendModel | json }}
+
+<form #friendForm="ngForm" novalidate (ngSubmit)="subFriend(friendModel)">
+  <label for="firstName">First Name</label>
+  <input id="firstName" name="firstName" type="text" required #inputFName="ngModel" [(ngModel)]="friendModel.firstName "
+         [class.border-invalid]="inputFName.invalid && inputFName.touched"
+         pattern="([^\d]*)">
+
+  <label for="lastName">Last Name</label>
+  <input id="lastName" name="lastName" type="text" required #inputLName="ngModel" [(ngModel)]="friendModel.lastName"
+         [class.border-invalid]="inputLName.invalid && inputLName.touched"
+         pattern="([^\d]*)">
+
+  <label for="email">Email</label>
+  <input id="email" name="email" type="text" required #inputEmail="ngModel" [(ngModel)]="friendModel.email" [class.border-invalid]="inputEmail.invalid && inputEmail.touched"
+         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+
+  <label for="phoneNumber">Phone number</label>
+  <input id="phoneNumber" name="phoneNumber" type="tel" required #inputPhone="ngModel" [(ngModel)]="friendModel.phoneNumber" [class.border-invalid]="inputPhone.invalid && inputPhone.touched"
+         pattern="^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$">
+
+  <label for="language">Select your favourite language</label>
+  <select type="text" id="language" name="language" required #inputLang="ngModel" [(ngModel)]="friendModel.language"
+  [class.border-invalid]="inputLang.invalid && inputLang.touched"> <option *ngFor="let language of languages" value="{{ language }}">{{ language }}</option>
+  </select>
+  <button type="submit" [disabled]="friendForm.form.invalid">Submit</button>
+</form>
+
+<div *ngFor="let friend of allFriends"><p>Name: {{ friend.firstName }} {{ friend.lastName }} Email: {{ friend.email }} Tel: {{ friend.phoneNumber }} favorite Language {{ friend.language }}</p></div>
